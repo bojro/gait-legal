@@ -1,0 +1,135 @@
+:root {
+  --forest: #1C3A2B;
+  --cream: #F7F3EE;
+  --charcoal: #2D2D2D;
+  --warm-gray: #8A8278;
+  --soft-white: #FDFAF7;
+  --error-red: #C0392B;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--cream);
+  color: var(--charcoal);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 24px 96px;
+}
+
+header.site {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 32px 24px 0;
+}
+
+header.site a {
+  color: var(--forest);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+header.site a:hover { text-decoration: underline; }
+
+h1 {
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  font-size: 36px;
+  line-height: 1.2;
+  color: var(--forest);
+  margin: 24px 0 8px;
+}
+
+h2 {
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  font-size: 22px;
+  color: var(--charcoal);
+  margin: 40px 0 12px;
+  border-bottom: 1px solid rgba(138, 130, 120, 0.2);
+  padding-bottom: 8px;
+}
+
+h3 {
+  font-size: 17px;
+  color: var(--charcoal);
+  margin: 28px 0 8px;
+}
+
+p, li {
+  font-size: 16px;
+  color: var(--charcoal);
+}
+
+ul, ol { padding-left: 24px; }
+li { margin-bottom: 6px; }
+
+strong { color: var(--charcoal); font-weight: 600; }
+
+a {
+  color: var(--forest);
+  text-decoration: underline;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background: rgba(138, 130, 120, 0.25);
+  margin: 32px 0;
+}
+
+.last-updated {
+  color: var(--warm-gray);
+  font-size: 14px;
+  font-style: italic;
+  margin-top: 0;
+}
+
+footer.site {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 24px;
+  color: var(--warm-gray);
+  font-size: 13px;
+  border-top: 1px solid rgba(138, 130, 120, 0.2);
+  text-align: center;
+}
+
+footer.site a { color: var(--warm-gray); }
+
+/* Index page */
+.index-card {
+  background: var(--soft-white);
+  border-radius: 16px;
+  padding: 32px;
+  margin-top: 24px;
+  box-shadow: 0 2px 12px rgba(28, 58, 43, 0.06);
+}
+
+.index-card h2 {
+  border: none;
+  padding: 0;
+  margin: 0 0 8px;
+}
+
+.index-card p { color: var(--warm-gray); margin: 0 0 16px; }
+
+.index-card a.button {
+  display: inline-block;
+  background: var(--forest);
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.index-card a.button:hover { opacity: 0.9; }
