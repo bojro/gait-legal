@@ -156,8 +156,12 @@ const SRC = "/Users/bojro/Desktop/gait-app/legal";
 
 const privacy = readFileSync(`${SRC}/privacy-policy.md`, "utf8");
 const terms = readFileSync(`${SRC}/terms-of-service.md`, "utf8");
+const support = readFileSync(`${SRC}/support.md`, "utf8");
+const deletion = readFileSync(`${SRC}/account-deletion.md`, "utf8");
 
 writeFileSync("privacy.html", shell("Privacy Policy", mdToHtml(privacy)));
 writeFileSync("terms.html", shell("Terms of Service", mdToHtml(terms)));
+writeFileSync("support.html", shell("Support", mdToHtml(support)));
+writeFileSync("delete-account.html", shell("Delete Account", mdToHtml(deletion)));
 
-console.log("wrote privacy.html, terms.html");
+console.log("wrote privacy.html, terms.html, support.html, delete-account.html");
