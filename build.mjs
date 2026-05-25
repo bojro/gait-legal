@@ -1,6 +1,7 @@
 // One-shot markdown → HTML converter for the Gait legal docs.
-// Tailored to the actual constructs used in legal/*.md (no fenced code,
-// no tables). Keeps zero runtime deps.
+// Tailored to the actual constructs used in legal/*.md (no fenced code).
+// Supports headings, lists, paragraphs, hr, tables (pipe), blockquotes (>).
+// Keeps zero runtime deps.
 
 import { readFileSync, writeFileSync } from "node:fs";
 
@@ -115,11 +116,50 @@ function mdToHtml(md) {
       continue;
     }
 
+    // Blockquote — consecutive lines starting with `>`
+    if (trimmed.startsWith(">")) {
+      closeList();
+      const quoteLines = [];
+      while (i < lines.length && lines[i].trim().startsWith(">")) {
+        quoteLines.push(inline(lines[i].trim().replace(/^>\s?/, "")));
+        i++;
+      }
+      out.push(`<blockquote>${quoteLines.join("<br>")}</blockquote>`);
+      continue;
+    }
+
+    // Table — header row | followed by separator |---|---|...
+    if (
+      trimmed.startsWith("|") &&
+      i + 1 < lines.length &&
+      /^\|[\s:|-]+\|?$/.test(lines[i + 1].trim())
+    ) {
+      closeList();
+      const splitRow = (row) => {
+        const parts = row.split("|");
+        if (parts[0].trim() === "") parts.shift();
+        if (parts.length && parts[parts.length - 1].trim() === "") parts.pop();
+        return parts.map((c) => inline(c.trim()));
+      };
+      const headerCells = splitRow(trimmed);
+      i += 2;
+      out.push("<table>");
+      out.push("<thead><tr>" + headerCells.map((c) => `<th>${c}</th>`).join("") + "</tr></thead>");
+      out.push("<tbody>");
+      while (i < lines.length && lines[i].trim().startsWith("|")) {
+        const cells = splitRow(lines[i].trim());
+        out.push("<tr>" + cells.map((c) => `<td>${c}</td>`).join("") + "</tr>");
+        i++;
+      }
+      out.push("</tbody></table>");
+      continue;
+    }
+
     // Paragraph (consume until blank line)
     closeList();
     const para = [trimmed];
     i++;
-    while (i < lines.length && lines[i].trim() !== "" && !/^(#{1,6}\s|---+$|[-*]\s|\d+\.\s|<!--)/.test(lines[i].trim())) {
+    while (i < lines.length && lines[i].trim() !== "" && !/^(#{1,6}\s|---+$|[-*]\s|\d+\.\s|<!--|>|\|)/.test(lines[i].trim())) {
       para.push(lines[i].trim());
       i++;
     }
