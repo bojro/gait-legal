@@ -185,7 +185,7 @@ function shell(title, body) {
 ${body}
   </main>
   <footer class="site">
-    Questions? <a href="mailto:dasbojro@gmail.com">dasbojro@gmail.com</a>
+    Questions? <a href="mailto:hello.gait.app@gmail.com">hello.gait.app@gmail.com</a>
   </footer>
 </body>
 </html>
